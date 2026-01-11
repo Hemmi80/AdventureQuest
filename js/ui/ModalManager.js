@@ -615,6 +615,94 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ============================================
+// MULTIPLAYER FUNCTIONS
+// ============================================
+
+function openMPConnect() {
+    closeAllModals();
+    const modal = document.getElementById('mp-connect-modal');
+    modal.classList.remove('hidden');
+    
+    // Load saved name
+    const savedName = localStorage.getItem('playerName') || '';
+    document.getElementById('player-name-input').value = savedName;
+    
+    // Load saved server URL
+    const savedServer = localStorage.getItem('serverUrl') || '';
+    document.getElementById('server-url-input').value = savedServer;
+}
+
+function closeMPConnect() {
+    document.getElementById('mp-connect-modal').classList.add('hidden');
+}
+
+function connectMultiplayer() {
+    const nameInput = document.getElementById('player-name-input');
+    const serverInput = document.getElementById('server-url-input');
+    
+    const playerName = nameInput.value.trim() || `Hero${Math.floor(Math.random() * 1000)}`;
+    const serverUrl = serverInput.value.trim();
+    
+    if (!serverUrl) {
+        alert('Please enter a server URL');
+        return;
+    }
+    
+    // Save preferences
+    localStorage.setItem('playerName', playerName);
+    localStorage.setItem('serverUrl', serverUrl);
+    
+    // Connect
+    if (window.Multiplayer) {
+        window.Multiplayer.connect(serverUrl);
+    }
+    
+    closeMPConnect();
+}
+
+function disconnectMultiplayer() {
+    if (window.Multiplayer) {
+        window.Multiplayer.disconnect();
+    }
+}
+
+// Setup chat input
+document.addEventListener('DOMContentLoaded', () => {
+    const chatInput = document.getElementById('chat-input');
+    if (chatInput) {
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && chatInput.value.trim()) {
+                const message = chatInput.value.trim();
+                if (window.Multiplayer && window.Multiplayer.isConnected) {
+                    window.Multiplayer.sendChatMessage(message);
+                }
+                chatInput.value = '';
+            }
+            // Prevent game from receiving input while typing
+            e.stopPropagation();
+        });
+        
+        // Focus handling
+        chatInput.addEventListener('focus', () => {
+            chatInput.placeholder = 'Type message...';
+        });
+        
+        chatInput.addEventListener('blur', () => {
+            chatInput.placeholder = 'Press Enter to chat...';
+        });
+    }
+    
+    // Update player count periodically
+    setInterval(() => {
+        const countEl = document.getElementById('player-count');
+        if (countEl && window.Multiplayer) {
+            const count = window.Multiplayer.getPlayerCount();
+            countEl.textContent = `${count} online`;
+        }
+    }, 1000);
+});
+
 // Export functions globally
 window.closeAllModals = closeAllModals;
 window.toggleInventory = toggleInventory;
@@ -632,3 +720,7 @@ window.closeClassModal = closeClassModal;
 window.showDeathScreen = showDeathScreen;
 window.respawnPlayer = respawnPlayer;
 window.showLevelUp = showLevelUp;
+window.openMPConnect = openMPConnect;
+window.closeMPConnect = closeMPConnect;
+window.connectMultiplayer = connectMultiplayer;
+window.disconnectMultiplayer = disconnectMultiplayer;
