@@ -54,6 +54,12 @@ class GameScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-ESC', () => {
             closeAllModals();
         });
+
+        // Setup multiplayer
+        if (window.Multiplayer) {
+            window.Multiplayer.setScene(this);
+            window.Multiplayer.setLocalPlayer(this.player);
+        }
     }
 
     createBackground() {
@@ -229,6 +235,11 @@ class GameScene extends Phaser.Scene {
             this.autoSaveTimer = 0;
             this.saveGame();
         }
+
+        // Send multiplayer position updates
+        if (window.Multiplayer && window.Multiplayer.isConnected) {
+            window.Multiplayer.sendPositionUpdate();
+        }
     }
 
     updatePortals() {
@@ -275,6 +286,11 @@ class GameScene extends Phaser.Scene {
     enterPortal(portal) {
         // Save current state
         this.saveGame();
+        
+        // Notify multiplayer of scene change
+        if (window.Multiplayer && window.Multiplayer.isConnected) {
+            window.Multiplayer.sendSceneChange(portal.targetScene, portal.spawnX, this.groundLevel);
+        }
         
         // Transition effect
         this.cameras.main.fadeOut(500, 0, 0, 0);

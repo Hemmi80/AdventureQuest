@@ -882,3 +882,208 @@ body::before {
         transform: translateY(-50px) scale(0.8);
     }
 }
+
+/* ============================================
+   MULTIPLAYER UI
+   ============================================ */
+
+/* Chat Container */
+#chat-container {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    width: 300px;
+    background: rgba(10, 10, 15, 0.9);
+    border: 1px solid var(--gold-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+#chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--bg-medium);
+    border-bottom: 1px solid var(--bg-lighter);
+    font-family: var(--font-display);
+    font-size: 12px;
+    color: var(--gold);
+}
+
+#player-count {
+    font-size: 11px;
+    color: var(--text-dim);
+}
+
+#chat-messages {
+    height: 150px;
+    overflow-y: auto;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.chat-message {
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.chat-message .player-name {
+    font-weight: 600;
+}
+
+.chat-message.system {
+    color: var(--accent-cyan);
+    font-style: italic;
+    font-size: 12px;
+}
+
+.system-msg {
+    color: var(--accent-cyan);
+}
+
+#chat-input-container {
+    padding: 8px;
+    border-top: 1px solid var(--bg-lighter);
+}
+
+#chat-input {
+    width: 100%;
+    padding: 8px 10px;
+    background: var(--bg-dark);
+    border: 1px solid var(--bg-lighter);
+    border-radius: 4px;
+    color: var(--text-bright);
+    font-family: var(--font-body);
+    font-size: 13px;
+    outline: none;
+}
+
+#chat-input:focus {
+    border-color: var(--gold-dark);
+}
+
+#chat-input::placeholder {
+    color: var(--text-dark);
+}
+
+/* Multiplayer Status */
+.mp-status {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    z-index: 200;
+    animation: fadeInOut 3s ease;
+}
+
+.mp-status.success {
+    background: rgba(50, 205, 50, 0.9);
+    color: white;
+}
+
+.mp-status.error {
+    background: rgba(196, 30, 58, 0.9);
+    color: white;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Multiplayer Connect Modal */
+.mp-connect-content {
+    width: 400px;
+}
+
+.mp-connect-body {
+    padding: 25px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--text-normal);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    background: var(--bg-dark);
+    border: 2px solid var(--bg-lighter);
+    border-radius: 6px;
+    color: var(--text-bright);
+    font-family: var(--font-body);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: var(--gold);
+}
+
+.mp-connect-body .btn-primary {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.mp-hint {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+/* Online Players Badge */
+#online-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-medium);
+    border: 1px solid var(--gold-dark);
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--gold);
+    z-index: 50;
+}
+
+#online-badge.connected {
+    border-color: var(--xp-green);
+}
+
+#online-badge .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    margin-right: 8px;
+}
+
+#online-badge.connected .dot {
+    background: var(--xp-green);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}

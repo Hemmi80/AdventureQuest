@@ -117,10 +117,50 @@
             <h2>⬆️ LEVEL UP!</h2>
             <p id="levelup-text"></p>
         </div>
+
+        <!-- Multiplayer Status -->
+        <div id="mp-status" class="mp-status" style="display:none;"></div>
+
+        <!-- Chat Box -->
+        <div id="chat-container">
+            <div id="chat-header">
+                <span>💬 Chat</span>
+                <span id="player-count">0 online</span>
+            </div>
+            <div id="chat-messages"></div>
+            <div id="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Press Enter to chat..." maxlength="200">
+            </div>
+        </div>
+
+        <!-- Multiplayer Connect Modal -->
+        <div id="mp-connect-modal" class="modal hidden">
+            <div class="modal-content mp-connect-content">
+                <div class="modal-header">
+                    <h2>🌐 Multiplayer</h2>
+                    <button class="close-btn" onclick="closeMPConnect()">✕</button>
+                </div>
+                <div class="mp-connect-body">
+                    <div class="input-group">
+                        <label>Your Name:</label>
+                        <input type="text" id="player-name-input" placeholder="Enter your name..." maxlength="20">
+                    </div>
+                    <div class="input-group">
+                        <label>Server:</label>
+                        <input type="text" id="server-url-input" placeholder="Server URL" value="">
+                    </div>
+                    <button class="btn-primary" onclick="connectMultiplayer()">Connect</button>
+                    <p class="mp-hint">Share the game link with friends to play together!</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Phaser 3 -->
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    
+    <!-- Socket.io for Multiplayer -->
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
     
     <!-- Game Scripts -->
     <script src="js/data/GameData.js"></script>
@@ -140,6 +180,7 @@
     <script src="js/scenes/DungeonScene.js"></script>
     <script src="js/scenes/UIScene.js"></script>
     <script src="js/ui/ModalManager.js"></script>
+    <script src="js/systems/MultiplayerSystem.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

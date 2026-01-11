@@ -67,6 +67,10 @@ class MenuScene extends Phaser.Scene {
         this.createButton(width / 2, buttonY + buttonSpacing * (hasSave ? 2 : 1), 'Controls', () => {
             this.showControls();
         });
+
+        this.createButton(width / 2, buttonY + buttonSpacing * (hasSave ? 3 : 2), 'Multiplayer', () => {
+            openMPConnect();
+        });
         
         // Version
         this.add.text(width - 10, height - 10, 'v1.0.0', {
