@@ -52,7 +52,7 @@ class GameScene extends Phaser.Scene {
         
         // Keyboard shortcuts for modals
         this.input.keyboard.on('keydown-ESC', () => {
-            closeAllModals();
+            window.closeAllModals();
         });
 
         // Setup multiplayer
@@ -128,7 +128,7 @@ class GameScene extends Phaser.Scene {
             // Show class selection for new game
             if (this.initData.newGame) {
                 this.time.delayedCall(500, () => {
-                    showClassSelection();
+                    window.showClassSelection();
                 });
             }
         }

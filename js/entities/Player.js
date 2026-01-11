@@ -302,12 +302,12 @@ class Player {
         
         // Toggle inventory
         if (Phaser.Input.Keyboard.JustDown(this.keys.I)) {
-            toggleInventory();
+            window.toggleInventory();
         }
         
         // Toggle quest log
         if (Phaser.Input.Keyboard.JustDown(this.keys.Q)) {
-            toggleQuestLog();
+            window.toggleQuestLog();
         }
     }
 
@@ -455,7 +455,7 @@ class Player {
         });
         
         // Show death screen
-        showDeathScreen();
+        window.showDeathScreen();
     }
 
     // Respawn
@@ -498,7 +498,7 @@ class Player {
         this.currentMana = this.stats.maxMana;
         
         // Show level up notification
-        showLevelUp(this.level);
+        window.showLevelUp(this.level);
         
         console.log(`Level up! Now level ${this.level}`);
     }

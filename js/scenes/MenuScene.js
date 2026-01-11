@@ -69,7 +69,7 @@ class MenuScene extends Phaser.Scene {
         });
 
         this.createButton(width / 2, buttonY + buttonSpacing * (hasSave ? 3 : 2), 'Multiplayer', () => {
-            openMPConnect();
+            window.openMPConnect();
         });
         
         // Version
