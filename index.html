@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealmQuest - Browser Adventure RPG</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-wrapper">
+        <div id="game-container"></div>
+        
+        <!-- Inventory Modal -->
+        <div id="inventory-modal" class="modal hidden">
+            <div class="modal-content inventory-content">
+                <div class="modal-header">
+                    <h2>⚔️ Inventory</h2>
+                    <button class="close-btn" onclick="closeInventory()">✕</button>
+                </div>
+                <div class="inventory-layout">
+                    <div class="equipment-panel">
+                        <h3>Equipment</h3>
+                        <div class="equipment-slots">
+                            <div class="equip-slot" data-slot="weapon">
+                                <span class="slot-label">Weapon</span>
+                                <div class="slot-item" id="equipped-weapon"></div>
+                            </div>
+                            <div class="equip-slot" data-slot="armor">
+                                <span class="slot-label">Armor</span>
+                                <div class="slot-item" id="equipped-armor"></div>
+                            </div>
+                            <div class="equip-slot" data-slot="helmet">
+                                <span class="slot-label">Helmet</span>
+                                <div class="slot-item" id="equipped-helmet"></div>
+                            </div>
+                            <div class="equip-slot" data-slot="accessory">
+                                <span class="slot-label">Accessory</span>
+                                <div class="slot-item" id="equipped-accessory"></div>
+                            </div>
+                        </div>
+                        <div class="player-stats" id="player-stats-panel"></div>
+                    </div>
+                    <div class="items-panel">
+                        <h3>Items</h3>
+                        <div class="inventory-grid" id="inventory-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quest Log Modal -->
+        <div id="quest-modal" class="modal hidden">
+            <div class="modal-content quest-content">
+                <div class="modal-header">
+                    <h2>📜 Quest Log</h2>
+                    <button class="close-btn" onclick="closeQuestLog()">✕</button>
+                </div>
+                <div class="quest-list" id="quest-list"></div>
+            </div>
+        </div>
+
+        <!-- Shop Modal -->
+        <div id="shop-modal" class="modal hidden">
+            <div class="modal-content shop-content">
+                <div class="modal-header">
+                    <h2 id="shop-title">🏪 Shop</h2>
+                    <button class="close-btn" onclick="closeShop()">✕</button>
+                </div>
+                <div class="shop-layout">
+                    <div class="shop-items" id="shop-items"></div>
+                    <div class="shop-info">
+                        <div id="selected-item-info"></div>
+                        <div class="player-gold">
+                            <span>Your Gold:</span>
+                            <span id="shop-player-gold">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialogue Modal -->
+        <div id="dialogue-modal" class="modal hidden">
+            <div class="modal-content dialogue-content">
+                <div class="dialogue-header">
+                    <img id="npc-portrait" src="" alt="">
+                    <h2 id="npc-name">NPC Name</h2>
+                </div>
+                <div class="dialogue-text" id="dialogue-text"></div>
+                <div class="dialogue-options" id="dialogue-options"></div>
+            </div>
+        </div>
+
+        <!-- Class Selection Modal -->
+        <div id="class-modal" class="modal hidden">
+            <div class="modal-content class-content">
+                <div class="modal-header">
+                    <h2>⚔️ Choose Your Class</h2>
+                    <button class="close-btn" onclick="closeClassModal()">✕</button>
+                </div>
+                <div class="class-grid" id="class-grid"></div>
+            </div>
+        </div>
+
+        <!-- Death Screen -->
+        <div id="death-screen" class="modal hidden">
+            <div class="modal-content death-content">
+                <h1>☠️ You Died!</h1>
+                <p>The darkness claims another hero...</p>
+                <button class="btn-primary" onclick="respawnPlayer()">Respawn in Town</button>
+            </div>
+        </div>
+
+        <!-- Level Up Notification -->
+        <div id="levelup-notification" class="notification hidden">
+            <h2>⬆️ LEVEL UP!</h2>
+            <p id="levelup-text"></p>
+        </div>
+    </div>
+
+    <!-- Phaser 3 -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    
+    <!-- Game Scripts -->
+    <script src="js/data/GameData.js"></script>
+    <script src="js/systems/SaveSystem.js"></script>
+    <script src="js/systems/InventorySystem.js"></script>
+    <script src="js/systems/QuestSystem.js"></script>
+    <script src="js/systems/CombatSystem.js"></script>
+    <script src="js/systems/SkillSystem.js"></script>
+    <script src="js/entities/Player.js"></script>
+    <script src="js/entities/Enemy.js"></script>
+    <script src="js/entities/NPC.js"></script>
+    <script src="js/scenes/BootScene.js"></script>
+    <script src="js/scenes/MenuScene.js"></script>
+    <script src="js/scenes/GameScene.js"></script>
+    <script src="js/scenes/TownScene.js"></script>
+    <script src="js/scenes/ForestScene.js"></script>
+    <script src="js/scenes/DungeonScene.js"></script>
+    <script src="js/scenes/UIScene.js"></script>
+    <script src="js/ui/ModalManager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
