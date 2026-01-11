@@ -31,7 +31,7 @@ class InventorySystem {
 
     // Add item to inventory
     addItem(itemId, quantity = 1) {
-        const itemData = GameData.items[itemId];
+        const itemData = window.GameData.items[itemId];
         if (!itemData) {
             console.error(`Item not found: ${itemId}`);
             return false;
@@ -98,7 +98,7 @@ class InventorySystem {
 
     // Equip item
     equipItem(itemId) {
-        const itemData = GameData.items[itemId];
+        const itemData = window.GameData.items[itemId];
         if (!itemData) return false;
 
         // Check if it's equippable
@@ -149,7 +149,7 @@ class InventorySystem {
 
     // Use consumable item
     useItem(itemId, player) {
-        const itemData = GameData.items[itemId];
+        const itemData = window.GameData.items[itemId];
         if (!itemData || itemData.type !== 'consumable') {
             return false;
         }
@@ -192,7 +192,7 @@ class InventorySystem {
         for (const slot in this.equipment) {
             const itemId = this.equipment[slot];
             if (itemId) {
-                const itemData = GameData.items[itemId];
+                const itemData = window.GameData.items[itemId];
                 if (itemData && itemData.stats) {
                     for (const stat in itemData.stats) {
                         if (totalStats.hasOwnProperty(stat)) {
@@ -223,7 +223,7 @@ class InventorySystem {
 
     // Buy item from shop
     buyItem(itemId) {
-        const itemData = GameData.items[itemId];
+        const itemData = window.GameData.items[itemId];
         if (!itemData || !itemData.price) {
             return { success: false, message: 'Item not for sale' };
         }
@@ -244,7 +244,7 @@ class InventorySystem {
 
     // Sell item
     sellItem(itemId, quantity = 1) {
-        const itemData = GameData.items[itemId];
+        const itemData = window.GameData.items[itemId];
         if (!itemData) {
             return { success: false, message: 'Invalid item' };
         }
@@ -263,7 +263,7 @@ class InventorySystem {
     // Get inventory data for UI
     getInventoryDisplay() {
         return this.inventory.map(slot => {
-            const itemData = GameData.items[slot.itemId];
+            const itemData = window.GameData.items[slot.itemId];
             return {
                 ...slot,
                 ...itemData
@@ -279,7 +279,7 @@ class InventorySystem {
             if (itemId) {
                 display[slot] = {
                     itemId: itemId,
-                    ...GameData.items[itemId]
+                    ...window.GameData.items[itemId]
                 };
             } else {
                 display[slot] = null;

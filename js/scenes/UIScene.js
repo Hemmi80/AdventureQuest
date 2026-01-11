@@ -239,7 +239,7 @@ class UIScene extends Phaser.Scene {
         this.xpText.setText(`XP: ${xpProgress.current}/${xpProgress.required}`);
         
         // Update level/class
-        const className = GameData.classes[player.classId].name;
+        const className = window.GameData.classes[player.classId].name;
         this.levelText.setText(`Lv.${player.level} ${className}`);
         
         // Update gold
@@ -266,7 +266,7 @@ class UIScene extends Phaser.Scene {
         for (let i = 0; i < this.hotbarSlots.length; i++) {
             if (i < player.skills.length) {
                 const skillId = player.skills[i];
-                const skillData = GameData.skills[skillId];
+                const skillData = window.GameData.skills[skillId];
                 
                 // Update icon
                 this.hotbarIcons[i].setText(skillData.icon);
@@ -301,7 +301,7 @@ class UIScene extends Phaser.Scene {
         if (!player || index >= player.skills.length) return;
         
         const skillId = player.skills[index];
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         
         // Create tooltip
         this.tooltip = this.add.container(x, y);

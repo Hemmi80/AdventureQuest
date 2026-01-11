@@ -68,27 +68,27 @@ class Player {
 
     // Initialize class stats
     initializeClass(classId) {
-        const classData = GameData.classes[classId];
+        const classData = window.GameData.classes[classId];
         if (!classData) {
             console.error(`Invalid class: ${classId}`);
             classId = 'warrior';
         }
         
         this.classId = classId;
-        const baseStats = GameData.classes[classId].baseStats;
+        const baseStats = window.GameData.classes[classId].baseStats;
         
         // Calculate stats with level bonuses
         this.stats = {
-            maxHealth: baseStats.maxHealth + (this.level - 1) * GameData.statsPerLevel.maxHealth,
-            maxMana: baseStats.maxMana + (this.level - 1) * GameData.statsPerLevel.maxMana,
-            attack: baseStats.attack + (this.level - 1) * GameData.statsPerLevel.attack,
-            defense: baseStats.defense + (this.level - 1) * GameData.statsPerLevel.defense,
+            maxHealth: baseStats.maxHealth + (this.level - 1) * window.GameData.statsPerLevel.maxHealth,
+            maxMana: baseStats.maxMana + (this.level - 1) * window.GameData.statsPerLevel.maxMana,
+            attack: baseStats.attack + (this.level - 1) * window.GameData.statsPerLevel.attack,
+            defense: baseStats.defense + (this.level - 1) * window.GameData.statsPerLevel.defense,
             speed: baseStats.speed,
             critChance: baseStats.critChance
         };
         
         // Get skills for this class
-        this.skills = ['basic_attack', ...GameData.classes[classId].skills];
+        this.skills = ['basic_attack', ...window.GameData.classes[classId].skills];
     }
 
     // Change class
@@ -107,7 +107,7 @@ class Player {
         
         // Update sprite color
         if (this.sprite) {
-            this.sprite.setFillStyle(GameData.classes[newClassId].color);
+            this.sprite.setFillStyle(window.GameData.classes[newClassId].color);
         }
         
         // Reset cooldowns
@@ -118,15 +118,15 @@ class Player {
 
     // Recalculate stats with equipment
     recalculateStats() {
-        const classData = GameData.classes[this.classId];
+        const classData = window.GameData.classes[this.classId];
         const baseStats = classData.baseStats;
         
         // Base stats + level bonuses
         this.stats = {
-            maxHealth: baseStats.maxHealth + (this.level - 1) * GameData.statsPerLevel.maxHealth,
-            maxMana: baseStats.maxMana + (this.level - 1) * GameData.statsPerLevel.maxMana,
-            attack: baseStats.attack + (this.level - 1) * GameData.statsPerLevel.attack,
-            defense: baseStats.defense + (this.level - 1) * GameData.statsPerLevel.defense,
+            maxHealth: baseStats.maxHealth + (this.level - 1) * window.GameData.statsPerLevel.maxHealth,
+            maxMana: baseStats.maxMana + (this.level - 1) * window.GameData.statsPerLevel.maxMana,
+            attack: baseStats.attack + (this.level - 1) * window.GameData.statsPerLevel.attack,
+            defense: baseStats.defense + (this.level - 1) * window.GameData.statsPerLevel.defense,
             speed: baseStats.speed,
             critChance: baseStats.critChance
         };
@@ -146,7 +146,7 @@ class Player {
     // Create sprite representation
     createSprite() {
         // Main body (colored rectangle for now - can be replaced with sprite)
-        const classColor = GameData.classes[this.classId].color;
+        const classColor = window.GameData.classes[this.classId].color;
         
         this.sprite = this.scene.add.rectangle(this.x, this.y, 40, 60, classColor);
         this.sprite.setOrigin(0.5, 1);
@@ -422,7 +422,7 @@ class Player {
         this.sprite.setFillStyle(0xff0000);
         this.scene.time.delayedCall(100, () => {
             if (!this.isDead) {
-                this.sprite.setFillStyle(GameData.classes[this.classId].color);
+                this.sprite.setFillStyle(window.GameData.classes[this.classId].color);
             }
         });
         
@@ -482,8 +482,8 @@ class Player {
         this.xp += amount;
         
         // Check for level up
-        while (this.level < GameData.levelXpRequirements.length &&
-               this.xp >= GameData.levelXpRequirements[this.level]) {
+        while (this.level < window.GameData.levelXpRequirements.length &&
+               this.xp >= window.GameData.levelXpRequirements[this.level]) {
             this.levelUp();
         }
     }
@@ -505,12 +505,12 @@ class Player {
 
     // Get XP progress to next level
     getXPProgress() {
-        if (this.level >= GameData.levelXpRequirements.length) {
+        if (this.level >= window.GameData.levelXpRequirements.length) {
             return { current: this.xp, required: this.xp, percent: 1 };
         }
         
-        const currentLevelXP = this.level > 1 ? GameData.levelXpRequirements[this.level - 1] : 0;
-        const nextLevelXP = GameData.levelXpRequirements[this.level];
+        const currentLevelXP = this.level > 1 ? window.GameData.levelXpRequirements[this.level - 1] : 0;
+        const nextLevelXP = window.GameData.levelXpRequirements[this.level];
         const xpIntoLevel = this.xp - currentLevelXP;
         const xpNeeded = nextLevelXP - currentLevelXP;
         
@@ -572,7 +572,7 @@ class Player {
         
         // Update sprite color
         if (this.sprite) {
-            this.sprite.setFillStyle(GameData.classes[this.classId].color);
+            this.sprite.setFillStyle(window.GameData.classes[this.classId].color);
         }
     }
 

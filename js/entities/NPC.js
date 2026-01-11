@@ -9,7 +9,7 @@ class NPC {
         this.isNPC = true;
         
         // Get NPC data
-        this.npcData = GameData.npcs[npcId];
+        this.npcData = window.GameData.npcs[npcId];
         if (!this.npcData) {
             console.error(`NPC not found: ${npcId}`);
             return;
@@ -206,7 +206,7 @@ class NPC {
         if (dialogue.quests) {
             const turnInQuests = player.quests.getTurnInQuests(this.id);
             for (const questId of turnInQuests) {
-                const quest = GameData.quests[questId];
+                const quest = window.GameData.quests[questId];
                 options.push({
                     text: `[Complete] ${quest.name}`,
                     action: 'turnInQuest',
@@ -239,7 +239,7 @@ class NPC {
         if (!this.npcData.dialogue.quests) return [];
         
         return player.quests.getAvailableQuests(this.id).map(questId => {
-            const quest = GameData.quests[questId];
+            const quest = window.GameData.quests[questId];
             return {
                 id: questId,
                 name: quest.name,
@@ -255,13 +255,13 @@ class NPC {
         const shopId = this.npcData.dialogue.shop;
         if (!shopId) return null;
         
-        const shop = GameData.shops[shopId];
+        const shop = window.GameData.shops[shopId];
         if (!shop) return null;
         
         return {
             name: shop.name,
             items: shop.items.map(itemId => {
-                const item = GameData.items[itemId];
+                const item = window.GameData.items[itemId];
                 return {
                     id: itemId,
                     ...item

@@ -12,7 +12,7 @@ class SkillSystem {
 
     // Initialize skills for a class
     getClassSkills(classId) {
-        const classData = GameData.classes[classId];
+        const classData = window.GameData.classes[classId];
         if (!classData) return ['basic_attack'];
         
         return ['basic_attack', ...classData.skills];
@@ -35,7 +35,7 @@ class SkillSystem {
 
     // Get cooldown percentage (0-1)
     getCooldownPercent(skillId) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         if (!skillData) return 0;
         
         const remaining = this.getCooldownRemaining(skillId);
@@ -44,7 +44,7 @@ class SkillSystem {
 
     // Start cooldown for a skill
     startCooldown(skillId) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         if (!skillData) return;
         
         this.cooldowns.set(skillId, Date.now() + skillData.cooldown);
@@ -52,7 +52,7 @@ class SkillSystem {
 
     // Check if player can use skill
     canUseSkill(skillId, player) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         if (!skillData) return { canUse: false, reason: 'Invalid skill' };
 
         if (this.isOnCooldown(skillId)) {
@@ -78,7 +78,7 @@ class SkillSystem {
             return null;
         }
 
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         
         // Consume mana
         player.currentMana -= skillData.manaCost;
@@ -120,7 +120,7 @@ class SkillSystem {
 
     // Execute melee skill
     executeMeleeSkill(skillId, player, targets) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         const combat = this.scene.combat;
         
         let totalDamage = 0;
@@ -165,7 +165,7 @@ class SkillSystem {
 
     // Execute projectile skill
     executeProjectileSkill(skillId, player, facingRight) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         
         // Create projectile
         const projectile = this.createProjectile(
@@ -181,7 +181,7 @@ class SkillSystem {
 
     // Create a projectile
     createProjectile(x, y, skillId, facingRight, owner) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         
         // Visual representation
         const colors = {
@@ -272,7 +272,7 @@ class SkillSystem {
 
     // Handle projectile hit
     onProjectileHit(projectileData, target) {
-        const skillData = GameData.skills[projectileData.skillId];
+        const skillData = window.GameData.skills[projectileData.skillId];
         const combat = this.scene.combat;
         
         const isCrit = combat.rollCritical(projectileData.owner);
@@ -295,7 +295,7 @@ class SkillSystem {
 
     // Execute AOE skill
     executeAOESkill(skillId, player, targets) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         const combat = this.scene.combat;
         
         let totalDamage = 0;
@@ -339,7 +339,7 @@ class SkillSystem {
 
     // Execute buff skill
     executeBuffSkill(skillId, player) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         const combat = this.scene.combat;
 
         switch (skillData.effect) {
@@ -374,7 +374,7 @@ class SkillSystem {
 
     // Execute heal skill
     executeHealSkill(skillId, player) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         const combat = this.scene.combat;
         
         const healAmount = Math.floor(player.stats.maxHealth * skillData.healPercent);
@@ -409,7 +409,7 @@ class SkillSystem {
 
     // Execute movement skill (like shadow step)
     executeMovementSkill(skillId, player, targets) {
-        const skillData = GameData.skills[skillId];
+        const skillData = window.GameData.skills[skillId];
         
         if (skillData.effect === 'teleport' && targets.length > 0) {
             // Find nearest enemy
@@ -468,7 +468,7 @@ class SkillSystem {
     // Get skill display data for UI
     getSkillsDisplay(skills) {
         return skills.map(skillId => {
-            const skillData = GameData.skills[skillId];
+            const skillData = window.GameData.skills[skillId];
             return {
                 id: skillId,
                 name: skillData.name,

@@ -23,7 +23,7 @@ class QuestSystem {
 
     // Check if quest can be accepted
     canAcceptQuest(questId) {
-        const quest = GameData.quests[questId];
+        const quest = window.GameData.quests[questId];
         if (!quest) return false;
 
         // Already active
@@ -46,7 +46,7 @@ class QuestSystem {
             return false;
         }
 
-        const quest = GameData.quests[questId];
+        const quest = window.GameData.quests[questId];
         
         // Create progress tracking
         this.activeQuests[questId] = {
@@ -118,7 +118,7 @@ class QuestSystem {
         
         if (allComplete && !this.completedQuests.has(questId)) {
             this.completedQuests.add(questId);
-            console.log(`Quest ready to turn in: ${GameData.quests[questId].name}`);
+            console.log(`Quest ready to turn in: ${window.GameData.quests[questId].name}`);
             return true;
         }
         
@@ -136,7 +136,7 @@ class QuestSystem {
             return { success: false, message: 'Quest not complete' };
         }
 
-        const quest = GameData.quests[questId];
+        const quest = window.GameData.quests[questId];
         const rewards = quest.rewards;
 
         // Remove collected items for collection quests
@@ -174,7 +174,7 @@ class QuestSystem {
 
     // Get available quests from an NPC
     getAvailableQuests(npcId) {
-        const npc = GameData.npcs[npcId];
+        const npc = window.GameData.npcs[npcId];
         if (!npc || !npc.dialogue.quests) return [];
 
         return npc.dialogue.quests.filter(questId => this.canAcceptQuest(questId));
@@ -182,7 +182,7 @@ class QuestSystem {
 
     // Get quests ready to turn in to an NPC
     getTurnInQuests(npcId) {
-        const npc = GameData.npcs[npcId];
+        const npc = window.GameData.npcs[npcId];
         if (!npc || !npc.dialogue.quests) return [];
 
         return npc.dialogue.quests.filter(questId => this.isQuestComplete(questId));
@@ -193,7 +193,7 @@ class QuestSystem {
         const display = [];
         
         for (const questId in this.activeQuests) {
-            const questData = GameData.quests[questId];
+            const questData = window.GameData.quests[questId];
             const progress = this.activeQuests[questId];
             
             display.push({
@@ -204,10 +204,10 @@ class QuestSystem {
                 objectives: progress.objectives.map(obj => {
                     let text = '';
                     if (obj.type === 'kill') {
-                        const enemy = GameData.enemies[obj.target];
+                        const enemy = window.GameData.enemies[obj.target];
                         text = `Kill ${enemy ? enemy.name : obj.target}: ${obj.current}/${obj.count}`;
                     } else if (obj.type === 'collect') {
-                        const item = GameData.items[obj.item];
+                        const item = window.GameData.items[obj.item];
                         text = `Collect ${item ? item.name : obj.item}: ${obj.current}/${obj.count}`;
                     }
                     return {

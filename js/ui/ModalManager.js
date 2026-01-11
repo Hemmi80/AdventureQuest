@@ -436,10 +436,10 @@ function showAvailableQuests() {
 function showQuestDetails(quest) {
     const objectivesText = quest.objectives.map(obj => {
         if (obj.type === 'kill') {
-            const enemy = GameData.enemies[obj.target];
+            const enemy = window.GameData.enemies[obj.target];
             return `• Kill ${obj.count} ${enemy ? enemy.name : obj.target}`;
         } else if (obj.type === 'collect') {
-            const item = GameData.items[obj.item];
+            const item = window.GameData.items[obj.item];
             return `• Collect ${obj.count} ${item ? item.name : obj.item}`;
         }
         return '';
@@ -494,8 +494,8 @@ function showClassSelection() {
     const grid = document.getElementById('class-grid');
     grid.innerHTML = '';
     
-    for (const classId in GameData.classes) {
-        const classData = GameData.classes[classId];
+    for (const classId in window.GameData.classes) {
+        const classData = window.GameData.classes[classId];
         
         const card = document.createElement('div');
         card.className = 'class-card';

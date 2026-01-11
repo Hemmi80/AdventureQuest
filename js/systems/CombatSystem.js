@@ -258,7 +258,7 @@ class CombatSystem {
 
     // Perform melee attack
     performMeleeAttack(attacker, targets, skill = null) {
-        const skillData = skill ? GameData.skills[skill] : GameData.skills.basic_attack;
+        const skillData = skill ? window.GameData.skills[skill] : window.GameData.skills.basic_attack;
         const range = skillData.range || 70;
         
         let hitCount = 0;

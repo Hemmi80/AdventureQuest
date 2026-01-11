@@ -9,7 +9,7 @@ class Enemy {
         this.isPlayer = false;
         
         // Get enemy data
-        this.enemyData = GameData.enemies[enemyId];
+        this.enemyData = window.GameData.enemies[enemyId];
         if (!this.enemyData) {
             console.error(`Enemy not found: ${enemyId}`);
             return;
@@ -429,7 +429,7 @@ class Enemy {
                 const success = player.inventory.addItem(drop.itemId);
                 
                 if (success) {
-                    const itemData = GameData.items[drop.itemId];
+                    const itemData = window.GameData.items[drop.itemId];
                     
                     // Show item drop notification
                     this.scene.time.delayedCall(400, () => {
